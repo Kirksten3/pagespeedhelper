@@ -17,4 +17,6 @@ Gem::Specification.new do |s|
   s.add_dependency "rspec", "~> 3.5"
 
   s.add_dependency 'pry', '~> 0.9.12'
+
+  s.add_dependency "vcr", "~> 3.0"
 end

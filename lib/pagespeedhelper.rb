@@ -2,7 +2,6 @@ require 'google/apis/pagespeedonline_v2'
 require 'google/apis'
 require 'logger'
 require 'pry'
-# left to do: implement the options parameter and get the format string data
 
 class PageSpeedHelper
   attr_reader :errors, :results
@@ -15,6 +14,7 @@ class PageSpeedHelper
     @errors = []
     @urls = []
     @results = []
+    @data = []
     if debug
       Google::Apis.logger = Logger.new(STDERR)
       Google::Apis.logger.level = Logger::DEBUG
@@ -31,8 +31,8 @@ class PageSpeedHelper
     end
   end
 
-  def self.build_summary_string(summary)
-    if summary.to_h.key(:args=) or summary.to_h.key(:args)
+  def self.build_summary_string!(summary)
+    if summary.to_h.key?(:args=) or summary.to_h.key?(:args)
       summary.args.each do |arg|
         if arg.key != 'LINK'
           summary.format.sub! '{{' + arg.key + '}}', arg.value
@@ -54,12 +54,12 @@ class PageSpeedHelper
   end
 
   def parse
-    rule_result_names = ["AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching", "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML", "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages", "PrioritizeVisibleContent"]
+    rule_result_names = ["AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching",
+                         "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML",
+                         "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages",
+                         "PrioritizeVisibleContent"]
    
     @data.each_with_index do |result, i|
-      if result.nil?
-        next
-      end
       result_hash = Hash.new
       result_hash["url"] = @urls[i]
       result_hash["score"] = result.rule_groups["SPEED"].score
@@ -69,7 +69,7 @@ class PageSpeedHelper
         result_hash["results"][rule] = Hash.new
         result_hash["results"][rule]["name"] = result.formatted_results.rule_results[rule].localized_rule_name
         result_hash["results"][rule]["impact"] = result.formatted_results.rule_results[rule].rule_impact
-        result_hash["results"][rule]["summary"] = PageSpeedHelper.build_summary_string(result.formatted_results.rule_results[rule].summary) if !result.formatted_results.rule_results[rule].summary.nil?
+        result_hash["results"][rule]["summary"] = PageSpeedHelper.build_summary_string!(result.formatted_results.rule_results[rule].summary) if !result.formatted_results.rule_results[rule].summary.nil?
       end
       @results.push(result_hash)
     end
