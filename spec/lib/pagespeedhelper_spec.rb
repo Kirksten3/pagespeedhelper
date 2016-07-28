@@ -24,7 +24,6 @@ RSpec.describe PageSpeedHelper do
     let(:summary) { Pagespeedonline::FormatString.new(info) }
 
     it 'should replace variable and remove learn more' do
-      binding.pry
       expect(PageSpeedHelper.build_summary_string!(summary)).to eq("Foo occurs 3.")
     end
   end
