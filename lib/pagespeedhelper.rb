@@ -82,7 +82,7 @@ class PageSpeedHelper
     @psservice.batch do |ps|
       urls.each do |url|
         ps.run_pagespeed(url, filter_third_party_resources: nil, locale: nil, rule: nil, screenshot: nil, strategy: strategy, fields: nil, quota_user: nil, user_ip: nil, options: nil) do |result, err|
-          err.nil? ? @data.push(result) : @errors.push("#{url}, #{err}")
+          err.nil? ? @data.push(result) : @errors.push({ "url" => url, "error" => err })
         end
       end
     end
