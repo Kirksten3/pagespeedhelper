@@ -1,7 +1,6 @@
 require 'google/apis/pagespeedonline_v2'
 require 'google/apis'
 require 'logger'
-require 'pry'
 
 class PageSpeedHelper
   attr_reader :errors, :results
@@ -11,6 +10,7 @@ class PageSpeedHelper
   def initialize(key, debug=false)
     @psservice = Pagespeedonline::PagespeedonlineService.new
     @psservice.key = key
+    
     if debug
       Google::Apis.logger = Logger.new(STDERR)
       Google::Apis.logger.level = Logger::DEBUG
@@ -19,24 +19,18 @@ class PageSpeedHelper
 
   def self.add_protocol_if_absent!(url, secure=false)  
     if !url.include? "http://" and !url.include? "https://"
-      if secure
-        url.replace "https://" + url
-      else
-        url.replace "http://" + url
-      end
+      secure ? url.replace("https://" + url) : url.replace("http://" + url)
     end
   end
 
   def self.build_summary_string!(summary)
     if summary.to_h.key?(:args=) or summary.to_h.key?(:args)
       summary.args.each do |arg|
-        if arg.key != 'LINK'
-          summary.format.sub! '{{' + arg.key + '}}', arg.value
-        end
+        summary.format.sub!('{{' + arg.key + '}}', arg.value) if arg.key != 'LINK'
       end
     end 
 
-    summary.format = summary.format.include?(" Learn more") ? summary.format.split(" Learn more")[0] : summary.format 
+    summary.format.include?(" Learn more") ? summary.format.split(" Learn more")[0] : summary.format 
   end
 
   def query(urls, secure=false, strategy="desktop")
@@ -61,8 +55,8 @@ class PageSpeedHelper
       result_hash = Hash.new
       result_hash["url"] = @urls[i]
       result_hash["score"] = result.rule_groups["SPEED"].score
-
       result_hash["results"] = Hash.new
+      
       rule_result_names.each do |rule|
         result_hash["results"][rule] = Hash.new
         result_hash["results"][rule]["name"] = result.formatted_results.rule_results[rule].localized_rule_name
