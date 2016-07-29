@@ -70,7 +70,8 @@ ps.errors
 
 Errors are string of the form:
 ```
-"www.example.com, Server Error"
+ps.errors[0]["url"]   # url of site with error
+ps.errors[0]["error"] # site error
 ```
 
 ## Running the tests
