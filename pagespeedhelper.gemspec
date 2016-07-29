@@ -10,13 +10,7 @@ Gem::Specification.new do |s|
   s.homepage      = 'http://rubygems.org/gems/pagespeedhelper'
   s.license       = 'MIT'
 
-  s.add_dependency "rails", "~> 4.2"
-
   s.add_dependency "google-api-client", "0.9"
 
   s.add_dependency "rspec", "~> 3.5"
-
-  s.add_dependency 'pry', '~> 0.9.12'
-
-  s.add_dependency "vcr", "~> 3.0"
 end

@@ -11,10 +11,6 @@ class PageSpeedHelper
   def initialize(key, debug=false)
     @psservice = Pagespeedonline::PagespeedonlineService.new
     @psservice.key = key
-    @errors = []
-    @urls = []
-    @results = []
-    @data = []
     if debug
       Google::Apis.logger = Logger.new(STDERR)
       Google::Apis.logger.level = Logger::DEBUG
@@ -44,9 +40,10 @@ class PageSpeedHelper
   end
 
   def query(urls, secure=false, strategy="desktop")
+    @data = []
+    @errors = []
     urls = [urls] if !urls.is_a?(Array)
     @urls = urls.each { |url| PageSpeedHelper.add_protocol_if_absent!(url, secure) }
-    @data = []
     @urls.each_slice(20).to_a.each do |url_list|
       send_request(url_list, strategy)
       sleep(0.5)
@@ -54,6 +51,7 @@ class PageSpeedHelper
   end
 
   def parse
+    @results = []
     rule_result_names = ["AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching",
                          "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML",
                          "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages",
