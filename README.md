@@ -39,7 +39,7 @@ ps.parse
 
 **View Results:**
 ```
-ps.results # list of results
+ps.results    # list of results
 ```
 
 **Getting Data from Results:**
@@ -65,7 +65,7 @@ ps.results[0]["results"][ONE_OF_THE_RULES_ABOVE]["summary"] # text explanation o
 
 **View Errors:**
 ```
-ps.errors # list of errors
+ps.errors     # list of errors
 ```
 
 Errors are string of the form:
