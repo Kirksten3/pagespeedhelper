@@ -61,7 +61,10 @@ class PageSpeedHelper
         result_hash["results"][rule] = Hash.new
         result_hash["results"][rule]["name"] = result.formatted_results.rule_results[rule].localized_rule_name
         result_hash["results"][rule]["impact"] = result.formatted_results.rule_results[rule].rule_impact
-        result_hash["results"][rule]["summary"] = PageSpeedHelper.build_summary_string!(result.formatted_results.rule_results[rule].summary) if !result.formatted_results.rule_results[rule].summary.nil?
+        
+        if !result.formatted_results.rule_results[rule].summary.nil?
+          result_hash["results"][rule]["summary"] = PageSpeedHelper.build_summary_string!(result.formatted_results.rule_results[rule].summary)
+        end
       end
       @results.push(result_hash)
     end
@@ -73,7 +76,8 @@ class PageSpeedHelper
   def send_request(urls, strategy="desktop")
     @psservice.batch do |ps|
       urls.each do |url|
-        ps.run_pagespeed(url, filter_third_party_resources: nil, locale: nil, rule: nil, screenshot: nil, strategy: strategy, fields: nil, quota_user: nil, user_ip: nil, options: nil) do |result, err|
+        ps.run_pagespeed(url, filter_third_party_resources: nil, locale: nil, rule: nil, screenshot: nil, 
+                         strategy: strategy, fields: nil, quota_user: nil, user_ip: nil, options: nil) do |result, err|
           err.nil? ? @data.push(result) : @errors.push({ "url" => url, "error" => err })
         end
       end
