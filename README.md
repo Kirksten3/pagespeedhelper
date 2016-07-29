@@ -17,6 +17,7 @@ gem 'pagespeedhelper', :git => 'git://github.com/Kirksten3/pagespeed-gem.git'
 Setup:
 ```
 require 'pagespeedhelper'
+
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 
 # OR with verbose debugging to STDERR
