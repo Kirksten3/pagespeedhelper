@@ -18,6 +18,7 @@ Setup:
 ```
 require 'pagespeedhelper'
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
+
 # OR with verbose debugging to STDERR
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 ```
@@ -25,6 +26,7 @@ ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 Query:
 ```
 ps.query('www.example.com')
+
 # OR can take any number of elements in a list
 ps.query(['www.foo.com', 'www.bar.com'])
 ```
@@ -42,7 +44,10 @@ ps.results
 Getting Data from Results:
 Each of the rule results from Google are parsed and set in the results hash.
 
-Google's Rules: "AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching", "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML", "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages", "PrioritizeVisibleContent".
+List of Google's Rules: 
+```
+"AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching", "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML", "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages", "PrioritizeVisibleContent"
+```
 
 Result for one site checked:
 ```
@@ -60,7 +65,7 @@ ps.errors
 
 Errors are string of the form:
 ```
-"url, error"
+"www.example.com, Server Error"
 ```
 
 ## Running the tests
