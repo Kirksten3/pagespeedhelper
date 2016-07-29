@@ -23,6 +23,8 @@ ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 # OR with verbose debugging to STDERR
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 ```
+A note: running a query right after another query will erase the last query's data. So when parse is run it will only parse the latter query's data.
+
 
 **Query:**
 ```
@@ -36,6 +38,7 @@ ps.query(['www.foo.com', 'www.bar.com'])
 ```
 ps.parse
 ```
+A note: running parse will erase the results that were formerly in the results instance variable. Save the contents of results if something else needs to be parsed after.
 
 **View Results:**
 ```
