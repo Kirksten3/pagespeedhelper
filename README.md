@@ -14,7 +14,7 @@ gem 'pagespeedhelper', :git => 'git://github.com/Kirksten3/pagespeed-gem.git'
 
 ## Example
 
-Setup:
+**Setup:**
 ```
 require 'pagespeedhelper'
 
@@ -24,7 +24,7 @@ ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 ```
 
-Query:
+**Query:**
 ```
 ps.query('www.example.com')
 
@@ -32,17 +32,18 @@ ps.query('www.example.com')
 ps.query(['www.foo.com', 'www.bar.com'])
 ```
 
-Parse Results:
+**Parse Results:**
 ```
 ps.parse
 ```
 
-View Results:
+**View Results:**
 ```
 ps.results
 ```
 
-Getting Data from Results:
+**Getting Data from Results:**
+
 Each of the rule results from Google are parsed and set in the results hash.
 
 List of Google's Rules: 
@@ -59,7 +60,7 @@ ps.results[0]["results"][ONE_OF_THE_RULES_ABOVE]["impact"]  # impact of rule on 
 ps.results[0]["results"][ONE_OF_THE_RULES_ABOVE]["summary"] # text explanation of rule result or what could be improved
 ```
 
-View Errors:
+**View Errors:**
 ```
 ps.errors
 ```
