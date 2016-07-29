@@ -48,7 +48,10 @@ Each of the rule results from Google are parsed and set in the results hash.
 
 List of Google's Rules: 
 ```
-"AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching", "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML", "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages", "PrioritizeVisibleContent"
+"AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching", 
+"MainResourceServerResponseTime", "MinifyCss", "MinifyHTML", 
+"MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages", 
+"PrioritizeVisibleContent"
 ```
 
 Result for one site checked:
