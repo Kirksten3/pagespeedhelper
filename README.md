@@ -23,7 +23,7 @@ ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 # OR with verbose debugging to STDERR
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 ```
-A note: running a query right after another query will erase the last query's data. So when parse is run it will only parse the latter query's data.
+A note: running a query right after another query will erase the last query's data. So when parse is run it will only parse the latter query's data. This also applies to the errors instance variable as well.
 
 
 **Query:**
