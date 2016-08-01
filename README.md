@@ -23,27 +23,23 @@ ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 # OR with verbose debugging to STDERR
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 ```
-A note: running a query right after another query will erase the last query's data. So when parse is run it will only parse the latter query's data. This also applies to the errors instance variable as well.
 
 
 **Query:**
 ```
-ps.query('www.example.com')
+data = ps.query('www.example.com')
 
 # OR can take any number of elements in a list
-ps.query(['www.foo.com', 'www.bar.com'])
+data = ps.query(['www.foo.com', 'www.bar.com'])
 ```
+A note: Each time a query is run, the errors field will get emptied and replaced, make sure the errors are copied out before running subsequent queries!
+
 
 **Parse Results:**
 ```
-ps.parse
+results = ps.parse(data)
 ```
-A note: running parse will erase the results that were formerly in the results instance variable. Save the contents of results if something else needs to be parsed after.
 
-**View Results:**
-```
-ps.results    # list of results
-```
 
 **Getting Data from Results:**
 
@@ -59,12 +55,13 @@ List of Google's Rules:
 
 Result for one site checked:
 ```
-ps.results[0]["url"]                                        # url checked
-ps.results[0]["score"]                                      # site overall pagespeed score
-ps.results[0]["results"][ONE_OF_THE_RULES_ABOVE]["name"]    # localized name for printing
-ps.results[0]["results"][ONE_OF_THE_RULES_ABOVE]["impact"]  # impact of rule on pagespeed result
-ps.results[0]["results"][ONE_OF_THE_RULES_ABOVE]["summary"] # text explanation of rule result or what could be improved
+results[0]["url"]                                        # url checked
+results[0]["score"]                                      # site overall pagespeed score
+results[0]["results"][ONE_OF_THE_RULES_ABOVE]["name"]    # localized name for printing
+results[0]["results"][ONE_OF_THE_RULES_ABOVE]["impact"]  # impact of rule on pagespeed result
+results[0]["results"][ONE_OF_THE_RULES_ABOVE]["summary"] # text explanation of rule result or what could be improved
 ```
+
 
 **View Errors:**
 ```

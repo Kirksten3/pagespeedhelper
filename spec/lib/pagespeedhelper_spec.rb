@@ -13,12 +13,11 @@ RSpec.describe PageSpeedHelper do
       ps.query(url)
       
       expect(ps.instance_variable_get(:@errors).count).to eq(1)
-      expect(ps.instance_variable_get(:@urls)).to eq(['http://www.foo.org'])
+      #expect(ps.instance_variable_get(:@urls)).to eq(['http://www.foo.org'])
     end
   end
 
-  describe '#parse' do
-    let(:ps) { PageSpeedHelper.new('foo') }
+  describe '.parse' do
     let(:rule_groups) { { "SPEED" => Pagespeedonline::Result::RuleGroup.new({score: 100 }) } }
     let(:rule) { {  "AvoidLandingPageRedirects" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
                     "EnableGzipCompression" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
@@ -32,17 +31,14 @@ RSpec.describe PageSpeedHelper do
                     "PrioritizeVisibleContent" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }) } }
     let(:form_results) { Pagespeedonline::Result::FormattedResults.new({ locale: 'en-us', rule_results: rule }) }
     let(:data) { Pagespeedonline::Result.new({ formatted_results: form_results, rule_groups: rule_groups }) }
-    
+    let(:res) { PageSpeedHelper.parse(data) }
+
     context 'parse creates proper generic hash' do
       let(:format) { Pagespeedonline::FormatString.new({ format: "none" }) }
       
       it 'should set results to have the formatted hash results' do
-        ps.instance_variable_set(:@data, [data])
-        ps.instance_variable_set(:@urls, ['http://www.foo.com'])
-        ps.parse
-        expect(ps.results[0].key?("url")).to eq(true)
-        expect(ps.results[0].key?("score")).to eq(true)
-        expect(ps.results[0].key?("results")).to eq(true)
+        expect(res[0].key?("score")).to eq(true)
+        expect(res[0].key?("results")).to eq(true)
       end
     end
     
@@ -52,11 +48,8 @@ RSpec.describe PageSpeedHelper do
       let(:format) { Pagespeedonline::FormatString.new(info) }
 
       it 'should replace variable and remove learn more' do
-        ps.instance_variable_set(:@data, [data])
-        ps.instance_variable_set(:@urls, ['http://www.foo.com'])
-        ps.parse
         
-        expect(ps.results[0]["results"]["AvoidLandingPageRedirects"]["summary"]).to eq("Foo occurs 3.")
+        expect(res[0]["results"]["AvoidLandingPageRedirects"]["summary"]).to eq("Foo occurs 3.")
       end
     end
 
