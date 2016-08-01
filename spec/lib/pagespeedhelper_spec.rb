@@ -5,29 +5,6 @@ RSpec.describe PageSpeedHelper do
   
   Pagespeedonline = Google::Apis::PagespeedonlineV2
   
-  #describe '.add_protocol_if_absent!' do
-    #let(:no_http) { "www.foo.com" }
-    #let(:has_http) { "http://www.foo.com" }
-    
-    #it 'adds http protocol to url if absent' do
-      #expect(add_protocol_if_absent!(no_http)).to eq("http://www.foo.com")
-    #end
-
-    #it "won't add protocol if present" do
-      #expect(add_protocol_if_absent!(has_http)).to eq(nil)
-    #end
-  #end
-
-  #describe '.build_summary_string' do
-    #let(:arginfo) { Pagespeedonline::FormatString::Arg.new({ key: "NUM_TIMES", value: "3" }) }
-    #let(:info) { { format: "Foo occurs {{NUM_TIMES}}. Learn more", args: [arginfo] } }
-    #let(:summary) { Pagespeedonline::FormatString.new(info) }
-
-    #it 'should replace variable and remove learn more' do
-      #expect(build_summary_string!(summary)).to eq("Foo occurs 3.")
-    #end
-  #end
-
   describe '#query' do
     let(:ps) { PageSpeedHelper.new('foo') }
     let(:url) { "www.foo.org" }
