@@ -9,11 +9,9 @@ RSpec.describe PageSpeedHelper do
     let(:ps) { PageSpeedHelper.new('foo') }
     let(:url) { "www.foo.org" }
     
-    it 'should add http protocol for the query' do
-      ps.query(url)
-      
+    it 'should return empty array and an error' do
+      expect(ps.query(url)).to eq([])
       expect(ps.instance_variable_get(:@errors).count).to eq(1)
-      #expect(ps.instance_variable_get(:@urls)).to eq(['http://www.foo.org'])
     end
   end
 
@@ -39,6 +37,7 @@ RSpec.describe PageSpeedHelper do
       it 'should set results to have the formatted hash results' do
         expect(res[0].key?("score")).to eq(true)
         expect(res[0].key?("results")).to eq(true)
+        expect(res[0]["results"].key?("AvoidLandingPageRedirects")).to eq(true)
       end
     end
     
@@ -49,7 +48,7 @@ RSpec.describe PageSpeedHelper do
 
       it 'should replace variable and remove learn more' do
         
-        expect(res[0]["results"]["AvoidLandingPageRedirects"]["summary"]).to eq("Foo occurs 3.")
+        expect(res[0]["results"]["AvoidLandingPageRedirects"]["summary"]).to eq("Foo occurs 3")
       end
     end
 

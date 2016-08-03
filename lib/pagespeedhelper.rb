@@ -20,6 +20,7 @@ class PageSpeedHelper
   def query(urls, secure=false, strategy="desktop")
     @errors = Array.new
     data = Array.new 
+    
     urls = [urls] if !urls.is_a?(Array)
     urls = urls.each { |url| add_protocol_if_absent!(url, secure) }
     
@@ -35,41 +36,42 @@ class PageSpeedHelper
     results = Array.new
     
     data.each do |result|
-      result_hash = Hash.new
-      result_hash["url"] = result.id
-      result_hash["score"] = result.rule_groups["SPEED"].score
-      result_hash["stats"] = Hash[result.page_stats.to_h.map{ |k, v| [k.to_s, v] }]
+      result_hash = { "url" => result.id, 
+                      "score" => result.rule_groups["SPEED"].score, 
+                      "stats" => Hash[result.page_stats.to_h.map{ |k, v| [k.to_s, v] }],
+                      "results" => build_rule_hash(result.formatted_results.rule_results) }
       
-      result_hash["results"] = Hash.new
-      build_rule_hash(result_hash["results"], result.formatted_results.rule_results)
-
       results.push(result_hash)
     end
 
     results
   end
 
-  def self.build_rule_hash(hash, rule_res)
+  def self.build_rule_hash(rule_res)
+    rule_hash = Hash.new
+    
     rule_res.each do |rule, info|
-      hash[rule] = Hash.new
-      hash[rule]["name"] = info.localized_rule_name
-      hash[rule]["impact"] = info.rule_impact
-
-      if !info.summary.nil?
-        hash[rule]["summary"] = build_summary_string!(info.summary)
-      end
+      rule_hash[rule] = { "name" => info.localized_rule_name, 
+                          "impact" => info.rule_impact, 
+                          "summary" => build_summary_string!(info.summary) }
     end
+    
+    rule_hash
   end
   
   def self.build_summary_string!(summary)
+    return nil if summary.nil?
+
     if summary.to_h.key?(:args)
       summary.args.each do |arg|
-        summary.format.sub!('{{' + arg.key + '}}', arg.value) if arg.key != 'LINK'
+        summary.format.sub!(arg.key, arg.value)
+        summary.format.gsub!(/\{{2}|\}{2}/,'')
       end
     end 
 
-    summary.format.include?(" Learn more") ? summary.format.split(" Learn more")[0] : summary.format 
+    summary.format.split('.')[0]
   end
+
 
   private_class_method :build_rule_hash, :build_summary_string!
 
@@ -77,6 +79,7 @@ class PageSpeedHelper
 
   def send_request(urls, strategy="desktop")
     data = Array.new
+    
     @psservice.batch do |ps|
       urls.each do |url|
         ps.run_pagespeed(url, strategy: strategy) do |result, err|
@@ -84,6 +87,7 @@ class PageSpeedHelper
         end
       end
     end
+    
     data
   end
 
