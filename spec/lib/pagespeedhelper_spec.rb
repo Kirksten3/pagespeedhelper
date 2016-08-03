@@ -31,7 +31,7 @@ RSpec.describe PageSpeedHelper do
                     "PrioritizeVisibleContent" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }) } }
     let(:form_results) { Pagespeedonline::Result::FormattedResults.new({ locale: 'en-us', rule_results: rule }) }
     let(:data) { Pagespeedonline::Result.new({ formatted_results: form_results, rule_groups: rule_groups }) }
-    let(:res) { PageSpeedHelper.parse(data) }
+    let(:res) { PageSpeedHelper.parse([data]) }
 
     context 'parse creates proper generic hash' do
       let(:format) { Pagespeedonline::FormatString.new({ format: "none" }) }

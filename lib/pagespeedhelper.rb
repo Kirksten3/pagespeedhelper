@@ -18,8 +18,8 @@ class PageSpeedHelper
   end
 
   def query(urls, secure=false, strategy="desktop")
-    @errors = []
-    data = [] 
+    @errors = Array.new
+    data = Array.new 
     urls = [urls] if !urls.is_a?(Array)
     urls = urls.each { |url| add_protocol_if_absent!(url, secure) }
     
@@ -32,13 +32,14 @@ class PageSpeedHelper
   end
 
   def self.parse(data)
-    results = []
-    data = [data] if !data.is_a?(Array)
-
+    results = Array.new
+    
     data.each do |result|
       result_hash = Hash.new
       result_hash["url"] = result.id
       result_hash["score"] = result.rule_groups["SPEED"].score
+      result_hash["stats"] = Hash[result.page_stats.to_h.map{ |k, v| [k.to_s, v] }]
+      
       result_hash["results"] = Hash.new
       build_rule_hash(result_hash["results"], result.formatted_results.rule_results)
 
@@ -49,18 +50,13 @@ class PageSpeedHelper
   end
 
   def self.build_rule_hash(hash, rule_res)
-    rule_names = ["AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching",
-                  "MainResourceServerResponseTime", "MinifyCss", "MinifyHTML",
-                  "MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages",
-                  "PrioritizeVisibleContent"]
-  
-    rule_names.each do |rule|
+    rule_res.each do |rule, info|
       hash[rule] = Hash.new
-      hash[rule]["name"] = rule_res[rule].localized_rule_name
-      hash[rule]["impact"] = rule_res[rule].rule_impact
-        
-      if !rule_res[rule].summary.nil?
-        hash[rule]["summary"] = build_summary_string!(rule_res[rule].summary)
+      hash[rule]["name"] = info.localized_rule_name
+      hash[rule]["impact"] = info.rule_impact
+
+      if !info.summary.nil?
+        hash[rule]["summary"] = build_summary_string!(info.summary)
       end
     end
   end
@@ -80,11 +76,10 @@ class PageSpeedHelper
   private
 
   def send_request(urls, strategy="desktop")
-    data = []
+    data = Array.new
     @psservice.batch do |ps|
       urls.each do |url|
-        ps.run_pagespeed(url, filter_third_party_resources: nil, locale: nil, rule: nil, screenshot: nil, 
-                         strategy: strategy, fields: nil, quota_user: nil, user_ip: nil, options: nil) do |result, err|
+        ps.run_pagespeed(url, strategy: strategy) do |result, err|
           err.nil? ? data.push(result) : @errors.push({ "url" => url, "error" => err })
         end
       end
