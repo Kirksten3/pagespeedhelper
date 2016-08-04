@@ -59,6 +59,17 @@ results[0]["results"][ONE_OF_GOOGLES_RULES]["impact"]  # impact of rule on pages
 results[0]["results"][ONE_OF_GOOGLES_RULES]["summary"] # text explanation of rule result or what could be improved
 ```
 
+To get the Page Stats:<br />
+```
+List of Page Stats:
+css_response_bytes, html_response_bytes, image_response_bytes, javascript_response_bytes,
+number_css_resources, number_hosts, number_js_resources, number_resources,
+number_static_resources, other_response_bytes, total_request_bytes
+```
+
+```ruby
+results[0]["stats"][STAT_FROM_ABOVE]
+```
 
 **View Errors:**
 ```ruby
