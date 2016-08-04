@@ -54,9 +54,9 @@ Result for one site checked:
 ```ruby
 results[0]["url"]                                        # url checked
 results[0]["score"]                                      # site overall pagespeed score
-results[0]["results"][ONE_OF_THE_RULES_ABOVE]["name"]    # localized name for printing
-results[0]["results"][ONE_OF_THE_RULES_ABOVE]["impact"]  # impact of rule on pagespeed result
-results[0]["results"][ONE_OF_THE_RULES_ABOVE]["summary"] # text explanation of rule result or what could be improved
+results[0]["results"][ONE_OF_GOOGLES_RULES]["name"]    # localized name for printing
+results[0]["results"][ONE_OF_GOOGLES_RULES]["impact"]  # impact of rule on pagespeed result
+results[0]["results"][ONE_OF_GOOGLES_RULES]["summary"] # text explanation of rule result or what could be improved
 ```
 
 
