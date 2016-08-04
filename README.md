@@ -47,15 +47,8 @@ results = PageSpeedHelper.parse(data)
 
 **Getting Data from Results:**
 
-Each of the rule results from Google are parsed and set in the results hash.
-
-List of Google's Rules: 
-```
-"AvoidLandingPageRedirects", "EnableGzipCompression", "LeverageBrowserCaching", 
-"MainResourceServerResponseTime", "MinifyCss", "MinifyHTML", 
-"MinifyJavaScript", "MinimizeRenderBlockingResources", "OptimizeImages", 
-"PrioritizeVisibleContent"
-```
+Each of the rule results from Google are parsed and set in the results hash.<br />
+This set of rules varies depending on which strategy is used. Mobile will also include "USABILITY" rule results.
 
 Result for one site checked:
 ```ruby
