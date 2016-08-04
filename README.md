@@ -32,9 +32,8 @@ data = ps.query('www.example.com')
 # OR can take any number of elements in a list
 data = ps.query(['www.foo.com', 'www.bar.com'])
 
-# query can also add http/https protocol, default is to http
-# setting the second parameter to true will prepend 'https://' to the url
-# and switch between mobile and desktop strategy for pagespeed, default is desktop
+# query can also add http/https to the url, default is false which is http
+# and can switch between mobile and desktop strategy for pagespeed, default is desktop
 data = ps.query([LIST_OF_URLS], true, "mobile")
 ```
 A note: Each time a query is run, the errors field will get emptied and replaced, make sure the errors are copied out before running subsequent queries!
