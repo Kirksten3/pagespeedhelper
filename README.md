@@ -15,7 +15,7 @@ gem 'pagespeedhelper', :git => 'git://github.com/Kirksten3/pagespeed-gem.git'
 ## Example
 
 **Setup:**
-```
+```ruby
 require 'pagespeedhelper'
 
 ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
@@ -26,7 +26,7 @@ ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 
 
 **Query:**
-```
+```ruby
 data = ps.query('www.example.com')
 
 # OR can take any number of elements in a list
@@ -36,8 +36,8 @@ A note: Each time a query is run, the errors field will get emptied and replaced
 
 
 **Parse Results:**
-```
-results = ps.parse(data)
+```ruby
+results = PageSpeedHelper.parse(data)
 ```
 
 
@@ -54,7 +54,7 @@ List of Google's Rules:
 ```
 
 Result for one site checked:
-```
+```ruby
 results[0]["url"]                                        # url checked
 results[0]["score"]                                      # site overall pagespeed score
 results[0]["results"][ONE_OF_THE_RULES_ABOVE]["name"]    # localized name for printing
@@ -64,12 +64,12 @@ results[0]["results"][ONE_OF_THE_RULES_ABOVE]["summary"] # text explanation of r
 
 
 **View Errors:**
-```
+```ruby
 ps.errors     # list of errors
 ```
 
 Errors are string of the form:
-```
+```ruby
 ps.errors[0]["url"]   # url of site with error
 ps.errors[0]["error"] # site error
 ```
