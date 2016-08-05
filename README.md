@@ -32,11 +32,11 @@ data = ps.query('www.example.com')
 # OR can take any number of elements in a list
 data = ps.query(['www.foo.com', 'www.bar.com'])
 
-# query can also add http/https to the url, default is false which is http
+# query WILL also add http/https to the url if not present, default is false which is http
 # and can switch between mobile and desktop strategy for pagespeed, default is desktop
 data = ps.query([LIST_OF_URLS], true, "mobile")
 ```
-A note: Each time a query is run, the errors field will get emptied and replaced, make sure the errors are copied out before running subsequent queries!
+*A note:* Each time a query is run, the errors field will get emptied and replaced, make sure the errors are copied out before running subsequent queries!
 
 
 **Parse Results:**
@@ -50,7 +50,11 @@ results = PageSpeedHelper.parse(data)
 Each of the rule results from Google are parsed and set in the results hash.<br />
 This set of rules varies depending on which strategy is used. Mobile will also include "USABILITY" rule results.
 
+Results being parsed now need to be checked to see if they have an error.
+If so there will be no accompanying data, just the URL and the error.
+
 Result for one site checked:
+*A note:* Make sure to check if the result had an error
 ```ruby
 results[0]["url"]                                        # url checked
 results[0]["score"]                                      # site overall pagespeed score
@@ -71,16 +75,19 @@ number_static_resources, other_response_bytes, total_request_bytes
 results[0]["stats"][STAT_FROM_ABOVE]
 ```
 
-**View Errors:**
+Bulk results example:
 ```ruby
-ps.errors     # list of errors
+ps.results.each do |res|
+  if !res.key?("error")
+    # do something with valid result
+  else
+    # do something with error
+  end
+end
 ```
 
-Errors are string of the form:
-```ruby
-ps.errors[0]["url"]   # url of site with error
-ps.errors[0]["error"] # site error
-```
+**Errors:**
+As seen above, errors are now listed in the result object, a manual check needs to be done to see if the site had an issue with the request. It will also contain the reason why it failed.
 
 ## Running the tests
 
