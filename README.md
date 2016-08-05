@@ -87,7 +87,7 @@ end
 ```
 
 **Errors:**
-As seen above, errors are now listed in the result object, a manual check needs to be done to see if the site had an issue with the request. It will also contain the reason why it failed.
+As seen above, errors are now listed in the result hash, a manual check needs to be done to see if the site had an issue with the request. It will also contain the reason why it failed.
 
 ## Running the tests
 
