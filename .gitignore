@@ -1,1 +1,4 @@
 *.sh
+csvhelper.rb
+*.txt
+*.csv

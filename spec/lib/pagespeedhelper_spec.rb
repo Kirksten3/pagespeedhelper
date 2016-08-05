@@ -10,45 +10,46 @@ RSpec.describe PageSpeedHelper do
     let(:url) { "www.foo.org" }
     
     it 'should return empty array and an error' do
-      expect(ps.query(url)).to eq([])
-      expect(ps.instance_variable_get(:@errors).count).to eq(1)
+      expect(ps.query(url)[0]['url']).to eq('http://www.foo.org')
+      expect(ps.query(url)[0].key?('error')).to eq(true)
     end
   end
 
   describe '.parse' do
     let(:rule_groups) { { "SPEED" => Pagespeedonline::Result::RuleGroup.new({score: 100 }) } }
-    let(:rule) { {  "AvoidLandingPageRedirects" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "EnableGzipCompression" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "LeverageBrowserCaching" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "MainResourceServerResponseTime" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "MinifyCss" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "MinifyHTML" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "MinifyJavaScript" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "MinimizeRenderBlockingResources" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "OptimizeImages" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }),
-                    "PrioritizeVisibleContent" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', impact: 5, summary: format }) } }
-    let(:form_results) { Pagespeedonline::Result::FormattedResults.new({ locale: 'en-us', rule_results: rule }) }
-    let(:data) { Pagespeedonline::Result.new({ formatted_results: form_results, rule_groups: rule_groups }) }
-    let(:res) { PageSpeedHelper.parse([data]) }
 
-    context 'parse creates proper generic hash' do
-      let(:format) { Pagespeedonline::FormatString.new({ format: "none" }) }
-      
+    let(:arginfo) { Pagespeedonline::FormatString::Arg.new({ key: "NUM_TIMES", value: "3" }) }
+    let(:info) { { format: "Foo occurs {{NUM_TIMES}}. Learn more", args: [arginfo] } }
+    let(:format) { Pagespeedonline::FormatString.new(info) }
+    let(:rule) { {  "AvoidLandingPageRedirects" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', rule_impact: 5.5599, summary: format }) } }
+    
+    let(:stats) { Pagespeedonline::Result::PageStats.new({ css_response_bytes: 500 }) }
+
+    let(:form_results) { Pagespeedonline::Result::FormattedResults.new({ locale: 'en-us', rule_results: rule }) }
+    let(:data) { Pagespeedonline::Result.new({ formatted_results: form_results, rule_groups: rule_groups, page_stats: stats }) }
+    
+    let(:res) { PageSpeedHelper.parse([data, { "url" => 'http://www.bar.com', "error" => "Bad Request" }]) }
+    
+    context 'parse default creates proper generic hash' do
+
       it 'should set results to have the formatted hash results' do
         expect(res[0].key?("score")).to eq(true)
         expect(res[0].key?("results")).to eq(true)
-        expect(res[0]["results"].key?("AvoidLandingPageRedirects")).to eq(true)
       end
-    end
-    
-    context 'parse replaces constants in the format string per rule' do
-      let(:arginfo) { Pagespeedonline::FormatString::Arg.new({ key: "NUM_TIMES", value: "3" }) }
-      let(:info) { { format: "Foo occurs {{NUM_TIMES}}. Learn more", args: [arginfo] } }
-      let(:format) { Pagespeedonline::FormatString.new(info) }
 
-      it 'should replace variable and remove learn more' do
-        
+      it 'should set the results hash' do
+        expect(res[0]["results"].key?("AvoidLandingPageRedirects")).to eq(true)
         expect(res[0]["results"]["AvoidLandingPageRedirects"]["summary"]).to eq("Foo occurs 3")
+        expect(res[0]["results"]["AvoidLandingPageRedirects"]["impact"]).to eq(5.56)
+      end
+
+      it 'should set the stats hash' do
+        expect(res[0]["stats"].key?("css_response_bytes")).to eq(true)
+        expect(res[0]["stats"]["css_response_bytes"]["value"]).to eq(500)
+      end
+
+      it 'should catch and append the error' do
+        expect(res[1].key?("error")).to eq(true)
       end
     end
 

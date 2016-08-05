@@ -3,7 +3,6 @@ require 'google/apis'
 require 'logger'
 
 class PageSpeedHelper
-  attr_reader :errors
   
   Pagespeedonline = Google::Apis::PagespeedonlineV2
   
@@ -18,9 +17,8 @@ class PageSpeedHelper
   end
 
   def query(urls, secure=false, strategy="desktop")
-    @errors = Array.new
     data = Array.new 
-    
+
     urls = [urls] if !urls.is_a?(Array)
     urls = urls.each { |url| add_protocol_if_absent!(url, secure) }
     
@@ -32,14 +30,22 @@ class PageSpeedHelper
     data
   end
 
-  def self.parse(data)
+  def self.parse(data) 
     results = Array.new
     
     data.each do |result|
-      result_hash = { "url" => result.id, 
-                      "score" => result.rule_groups["SPEED"].score, 
-                      "stats" => Hash[result.page_stats.to_h.map{ |k, v| [k.to_s, v] }],
-                      "results" => build_rule_hash(result.formatted_results.rule_results) }
+      if !result.is_a?(Hash)
+        result_hash = { 
+          "url" => result.id, 
+          "score" => result.rule_groups["SPEED"].score, 
+          "stats" => Hash[result.page_stats.to_h.map{ |k, v| [k.to_s, { 
+            "name" => k.to_s.capitalize.gsub!('_', ''), 
+            "value" => v } ] }],
+          "results" => build_rule_hash(result.formatted_results.rule_results)
+        }
+      else
+        result_hash = result
+      end
       
       results.push(result_hash)
     end
@@ -51,9 +57,11 @@ class PageSpeedHelper
     rule_hash = Hash.new
     
     rule_res.each do |rule, info|
-      rule_hash[rule] = { "name" => info.localized_rule_name, 
-                          "impact" => info.rule_impact, 
-                          "summary" => build_summary_string!(info.summary) }
+      rule_hash[rule] = { 
+        "name" => info.localized_rule_name, 
+        "impact" => info.rule_impact.round(2), 
+        "summary" => build_summary_string!(info.summary)
+      }
     end
     
     rule_hash
@@ -83,7 +91,7 @@ class PageSpeedHelper
     @psservice.batch do |ps|
       urls.each do |url|
         ps.run_pagespeed(url, strategy: strategy) do |result, err|
-          err.nil? ? data.push(result) : @errors.push({ "url" => url, "error" => err })
+          err.nil? ? data.push(result) : data.push({ "url" => url, "error" => err })
         end
       end
     end
