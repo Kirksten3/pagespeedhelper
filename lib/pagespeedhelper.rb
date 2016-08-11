@@ -39,7 +39,7 @@ class PageSpeedHelper
           "url" => result.id, 
           "score" => result.rule_groups["SPEED"].score, 
           "stats" => Hash[result.page_stats.to_h.map{ |k, v| [k.to_s, { 
-            "name" => k.to_s.capitalize.gsub!('_', ''), 
+            "name" => k.to_s.capitalize.gsub!('_', ' '), 
             "value" => v } ] }],
           "results" => build_rule_hash(result.formatted_results.rule_results)
         }

@@ -45,6 +45,7 @@ RSpec.describe PageSpeedHelper do
 
       it 'should set the stats hash' do
         expect(res[0]["stats"].key?("css_response_bytes")).to eq(true)
+        expect(res[0]["stats"]["css_response_bytes"]["name"]).to eq('Css response bytes')
         expect(res[0]["stats"]["css_response_bytes"]["value"]).to eq(500)
       end
 
