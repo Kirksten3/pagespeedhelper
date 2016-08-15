@@ -1,12 +1,12 @@
 require 'pagespeedhelper'
 require 'pry'
 
-RSpec.describe PageSpeedHelper do
+RSpec.describe PagespeedHelper do
   
   Pagespeedonline = Google::Apis::PagespeedonlineV2
   
   describe '#query' do
-    let(:ps) { PageSpeedHelper.new('foo') }
+    let(:ps) { PagespeedHelper.new('foo') }
     let(:url) { "www.foo.org" }
     
     it 'should return empty array and an error' do
@@ -28,7 +28,7 @@ RSpec.describe PageSpeedHelper do
     let(:form_results) { Pagespeedonline::Result::FormattedResults.new({ locale: 'en-us', rule_results: rule }) }
     let(:data) { Pagespeedonline::Result.new({ formatted_results: form_results, rule_groups: rule_groups, page_stats: stats }) }
     
-    let(:res) { PageSpeedHelper.parse([data, { "url" => 'http://www.bar.com', "error" => "Bad Request" }]) }
+    let(:res) { PagespeedHelper.parse([data, { "url" => 'http://www.bar.com', "error" => "Bad Request" }]) }
     
     context 'parse default creates proper generic hash' do
 

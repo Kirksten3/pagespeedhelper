@@ -2,7 +2,7 @@ require 'google/apis/pagespeedonline_v2'
 require 'google/apis'
 require 'logger'
 
-class PageSpeedHelper
+class PagespeedHelper
   
   Pagespeedonline = Google::Apis::PagespeedonlineV2
   
