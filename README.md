@@ -18,10 +18,10 @@ gem 'pagespeedhelper', :git => 'git://github.com/Kirksten3/pagespeed-gem.git'
 ```ruby
 require 'pagespeedhelper'
 
-ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
+ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 
 # OR with verbose debugging to STDERR
-ps = PageSpeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
+ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
 ```
 
 
@@ -41,7 +41,7 @@ data = ps.query([LIST_OF_URLS], true, "mobile")
 
 **Parse Results:**
 ```ruby
-results = PageSpeedHelper.parse(data)
+results = PagespeedHelper.parse(data)
 ```
 
 
@@ -77,7 +77,7 @@ results[0]["stats"][STAT_FROM_ABOVE]
 
 Bulk results example:
 ```ruby
-ps.results.each do |res|
+results.each do |res|
   if !res.key?("error")
     # do something with valid result
   else
