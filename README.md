@@ -9,7 +9,7 @@ Returns a hash of the results.<br />
 
 Add to your Gemfile:
 ```
-gem 'pagespeedhelper', :git => 'git://github.com/Kirksten3/pagespeed-gem.git'
+gem 'pagespeedhelper', '0.3.0'
 ```
 
 ## Example
