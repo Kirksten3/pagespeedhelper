@@ -56,7 +56,6 @@ Results being parsed now need to be checked to see if they have an error.
 If so there will be no accompanying data, just the URL and the error.
 
 Result for one site checked:
-*A note:* Make sure to check if the result had an error
 ```ruby
 results[0]["url"]                                        # url checked
 results[0]["score"]                                      # site overall pagespeed score
@@ -64,6 +63,7 @@ results[0]["results"][ONE_OF_GOOGLES_RULES]["name"]    # localized name for prin
 results[0]["results"][ONE_OF_GOOGLES_RULES]["impact"]  # impact of rule on pagespeed result
 results[0]["results"][ONE_OF_GOOGLES_RULES]["summary"] # text explanation of rule result or what could be improved
 ```
+*A note:* Make sure to check if the result had an error, this can be seen further in the bulk results example, and the errors section.
 
 To get the Page Stats:<br />
 ```
