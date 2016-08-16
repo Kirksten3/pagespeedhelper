@@ -11,6 +11,7 @@ Add to your Gemfile:
 ```
 gem 'pagespeedhelper', '0.3.1'
 ```
+Since it is still pre v1.0, minor updates will break previous functionality. Sticking with a specific version is best at this point.
 
 ## Example
 
