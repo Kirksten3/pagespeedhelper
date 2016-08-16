@@ -71,8 +71,10 @@ number_css_resources, number_hosts, number_js_resources, number_resources,
 number_static_resources, other_response_bytes, total_request_bytes
 ```
 
+Stats now have additional hashes for localized names and their value
 ```ruby
-results[0]["stats"][STAT_FROM_ABOVE]
+results[0]["stats"][STAT_FROM_ABOVE]["name"]
+results[0]["stats"][STAT_FROM_ABOVE]["value"]
 ```
 
 Bulk results example:
