@@ -91,6 +91,7 @@ end
 ```
 
 **Errors:**
+
 As seen above, errors are now listed in the result hash, a manual check needs to be done to see if the site had an issue with the request. It will also contain the reason why it failed.
 
 Errors will not be changed when `PagespeedHelper.parse()` is run. In fact, it is advantageous to parse before checking for errors as then you can simply do the bulk results example above. Otherwise to check the return from `ps.query()` requires examining hashes and objects, which is trickier.
