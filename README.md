@@ -106,5 +106,5 @@ results[0]["url"]   # the url where the error occurred
 
 Tests are under spec/, run with rspec
 ```
-rspec /spec/lib/pagespeedhelper_spec.rb
+rspec spec/lib/pagespeedhelper_spec.rb
 ```
