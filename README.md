@@ -97,8 +97,8 @@ Errors will not be changed when `PagespeedHelper.parse()` is run. In fact, it is
 
 The available error information is:
 ```ruby
-result[0]["error"] # the error that occurred, MainResource, etc.
-result[0]["url"]   # the url where the error occurred
+results[0]["error"] # the error that occurred, MainResource, etc.
+results[0]["url"]   # the url where the error occurred
 ```
 
 ## Running the tests
