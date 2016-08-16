@@ -79,7 +79,7 @@ results[0]["stats"][STAT_FROM_ABOVE]["name"]
 results[0]["stats"][STAT_FROM_ABOVE]["value"]
 ```
 
-Bulk results example:
+**Bulk results example:**
 ```ruby
 results.each do |res|
   if !res.key?("error")
