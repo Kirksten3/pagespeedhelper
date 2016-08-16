@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'pagespeedhelper'
-  s.version       = '0.3.0'
+  s.version       = '0.3.1'
   s.date          = '2016-08-03'
   s.summary       = 'A wrapper for Google\'s PageSpeed API'
   s.description   = 'Utilizes Google\'s Api for ruby to batch query 20 websites at a time, and format the results.'
@@ -12,5 +12,5 @@ Gem::Specification.new do |s|
 
   s.add_dependency "google-api-client", "0.9"
 
-  s.add_dependency "rspec", "~> 3.5"
+  s.add_dependency "rspec"
 end

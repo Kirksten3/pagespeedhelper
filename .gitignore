@@ -2,3 +2,4 @@
 csvhelper.rb
 *.txt
 *.csv
+*.gem
