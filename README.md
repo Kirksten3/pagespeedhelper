@@ -43,7 +43,6 @@ data = ps.query(['www.foo.com', 'www.bar.com'])
 # and can switch between mobile and desktop strategy for pagespeed, default is desktop
 data = ps.query([LIST_OF_URLS], "mobile", true)
 ```
-*A note:* Each time a query is run, the errors field will get emptied and replaced, make sure the errors are copied out before running subsequent queries!
 
 
 **Parse Results:**
