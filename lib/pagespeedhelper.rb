@@ -94,12 +94,12 @@ class PagespeedHelper
   private
 
   def rate_error?(data)
+    return false if @wait_time > @wait_limit
     data.each do |d|
       if d.is_a?(Hash)
         if d["error"].include?("rateLimitExceeded") or d["error"].include?("userRateLimitExceeded")
-          puts "RATE ERROR OCCURRED: Waiting #{@wait_time} seconds"
           sleep(@wait_time)
-          @wait_time < @wait_limit ? @wait_time *= 2 : @wait_limit
+          @wait_time <= @wait_limit ? @wait_time *= 2 : @wait_limit
           return true
         end
       end
