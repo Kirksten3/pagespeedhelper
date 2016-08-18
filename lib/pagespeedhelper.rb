@@ -6,9 +6,10 @@ class PagespeedHelper
   
   Pagespeedonline = Google::Apis::PagespeedonlineV2
   
-  def initialize(key, debug=false)
+  def initialize(key, limit=32, debug=false)
     @psservice = Pagespeedonline::PagespeedonlineService.new
     @psservice.key = key
+    @wait_limit = limit
 
     if debug
       Google::Apis.logger = Logger.new(STDERR)
@@ -16,19 +17,26 @@ class PagespeedHelper
     end
   end
 
-  def query(urls, secure=false, strategy="desktop")
+  def query(urls, strategy="desktop", secure="false")
+    @wait_time = 1
     data = Array.new 
 
     urls = [urls] if !urls.is_a?(Array)
     urls = urls.each { |url| add_protocol_if_absent!(url, secure) }
     
     urls.each_slice(20).to_a.each do |url_list|
-      data.concat send_request(url_list, strategy)
-      sleep(0.5)
-    end
+     
+      begin
+        results = send_request(url_list, strategy)
+      end while rate_error?(results)
 
+      data.concat results
+      sleep(3)
+    end
+    
     data
   end
+
 
   def self.parse(data) 
     results = Array.new
@@ -85,17 +93,30 @@ class PagespeedHelper
 
   private
 
+  def rate_error?(data)
+    data.each do |d|
+      if d.is_a?(Hash)
+        if d["error"].include?("rateLimitExceeded") or d["error"].include?("userRateLimitExceeded")
+          puts "RATE ERROR OCCURRED: Waiting #{@wait_time} seconds"
+          sleep(@wait_time)
+          @wait_time < @wait_limit ? @wait_time *= 2 : @wait_limit
+          return true
+        end
+      end
+    end
+    return false
+  end
+
   def send_request(urls, strategy="desktop")
     data = Array.new
     
     @psservice.batch do |ps|
       urls.each do |url|
         ps.run_pagespeed(url, strategy: strategy) do |result, err|
-          err.nil? ? data.push(result) : data.push({ "url" => url, "error" => err })
+          err.nil? ? data.push(result) : data.push({ "url" => url, "error" => err.to_s })
         end
       end
     end
-    
     data
   end
 
