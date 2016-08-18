@@ -12,7 +12,7 @@ Failed rate limit queries are automatically re-run.<br />
 
 Add to your Gemfile:
 ```
-gem 'pagespeedhelper', '0.4.2'
+gem 'pagespeedhelper', '0.4.3'
 ```
 Since it is still pre v1.0, minor updates will break previous functionality. Sticking with a specific version is best at this point.
 
@@ -25,6 +25,7 @@ require 'pagespeedhelper'
 ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 
 # With exponential backoff the max time to wait can be set as:
+# See more in the Errors Section
 ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', 32)
 
 # Verbose debugging can be set by:
@@ -39,8 +40,8 @@ data = ps.query('www.example.com')
 # OR can take any number of elements in a list
 data = ps.query(['www.foo.com', 'www.bar.com'])
 
-# query WILL also add http/https to the url if not present, default is false which is http
-# and can switch between mobile and desktop strategy for pagespeed, default is desktop
+# the strategy parameter can be either "mobile" or "desktop" for pagespeed, default is desktop
+# query() WILL also add http/https to the url if not present, default is false which is http
 data = ps.query([LIST_OF_URLS], "mobile", true)
 ```
 
@@ -98,7 +99,7 @@ end
 
 **Errors:**
 
-As of `v0.4.1` this gem utilizes exponential backoff which waits in between sending batch requests if a query returns a rate limit error (rateLimitExceeded or userRateLimitExceeded). This starts at one and goes to the values set in the initialization, or 32 which is default.
+As of `v0.4.1` this gem utilizes exponential backoff which waits in between sending batch requests if a query returns a rate limit error (`rateLimitExceeded` or `userRateLimitExceeded`). This starts at one and goes to the values set in the initialization, or 32 which is default. This value is the max amount of time it will wait, after which if another rate error occurs it will be added into the results hash with the rest of the errors / results.
 
 As seen above, errors are now listed in the result hash, a manual check needs to be done to see if the site had an issue with the request. It will also contain the reason why it failed.
 
