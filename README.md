@@ -1,15 +1,18 @@
 # Google PageSpeed Helper gem
 
 A gem for Google's PageSpeed API.<br />
+
+## Features
 Leverages Google's generated APIs and in doing so can do batch queries of 20 requests at a time.<br />
-Can take any number of elements in a list, and will split list for batch queries.
-Returns a hash of the results.<br />
+Can take any number of domains in a list to look up.<br />
+Uses exponential backoff to handle rate limit errors from Google.</br >
+Failed rate limit queries are automatically re-run.<br />
 
 ## Installing
 
 Add to your Gemfile:
 ```
-gem 'pagespeedhelper', '0.3.1'
+gem 'pagespeedhelper', '0.4.2'
 ```
 Since it is still pre v1.0, minor updates will break previous functionality. Sticking with a specific version is best at this point.
 
@@ -21,8 +24,11 @@ require 'pagespeedhelper'
 
 ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY')
 
-# OR with verbose debugging to STDERR
-ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', true)
+# With exponential backoff the max time to wait can be set as:
+ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', 32)
+
+# Verbose debugging can be set by:
+ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', 32, true)
 ```
 
 
@@ -35,7 +41,7 @@ data = ps.query(['www.foo.com', 'www.bar.com'])
 
 # query WILL also add http/https to the url if not present, default is false which is http
 # and can switch between mobile and desktop strategy for pagespeed, default is desktop
-data = ps.query([LIST_OF_URLS], true, "mobile")
+data = ps.query([LIST_OF_URLS], "mobile", true)
 ```
 *A note:* Each time a query is run, the errors field will get emptied and replaced, make sure the errors are copied out before running subsequent queries!
 
@@ -92,6 +98,8 @@ end
 ```
 
 **Errors:**
+
+As of `v0.4.1` this gem utilizes exponential backoff which waits in between sending batch requests if a query returns a rate limit error (rateLimitExceeded or userRateLimitExceeded). This starts at one and goes to the values set in the initialization, or 32 which is default.
 
 As seen above, errors are now listed in the result hash, a manual check needs to be done to see if the site had an issue with the request. It will also contain the reason why it failed.
 
