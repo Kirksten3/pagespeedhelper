@@ -22,7 +22,7 @@ class PagespeedHelper
     data = Array.new 
 
     urls = [urls] if !urls.is_a?(Array)
-    urls = urls.each { |url| add_protocol_if_absent!(url, secure) }
+    urls = urls.each { |url| url = add_protocol_if_absent(url, secure) }
     
     urls.each_slice(20).to_a.each do |url_list|
      
@@ -120,9 +120,9 @@ class PagespeedHelper
     data
   end
 
-  def add_protocol_if_absent!(url, secure=false)  
+  def add_protocol_if_absent(url, secure=false)  
     if !url.include? "http://" and !url.include? "https://"
-      secure ? url.replace("https://" + url) : url.replace("http://" + url)
+      secure ? "https://" + url : "http://" + url
     end
   end
 

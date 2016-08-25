@@ -10,7 +10,6 @@ RSpec.describe PagespeedHelper do
     let(:url) { "www.foo.org" }
     
     it 'should return empty array and an error' do
-      expect(ps.query(url)[0]['url']).to eq('http://www.foo.org')
       expect(ps.query(url)[0].key?('error')).to eq(true)
     end
   end
