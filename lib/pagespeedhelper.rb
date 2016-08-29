@@ -22,8 +22,9 @@ class PagespeedHelper
     data = Array.new 
 
     urls = [urls] if !urls.is_a?(Array)
-    urls = urls.each { |url| url = add_protocol_if_absent(url, secure) }
-    
+
+    urls = urls.map { |url| add_protocol_if_absent(url, secure) }
+
     urls.each_slice(20).to_a.each do |url_list|
      
       begin
