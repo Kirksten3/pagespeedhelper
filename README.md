@@ -6,6 +6,7 @@ A gem for Google's PageSpeed API.<br />
 ## Features
 Leverages Google's generated APIs and in doing so can do batch queries of 20 requests at a time.<br />
 Can take any number of domains in a list to look up.<br />
+Utilizes a block to minimize memory footprint in query().<br />
 Uses exponential backoff to handle rate limit errors from Google.</br >
 Failed rate limit queries are automatically re-run.<br />
 
@@ -15,7 +16,7 @@ Add to your Gemfile:
 ```ruby
 gem 'pagespeedhelper', '>=0.4.7'
 ```
-Minor updates should no longer break functionality.
+Minor updates should no longer break functionality. `v0.4.7` is the first updated, fully functional release. Any version after will be compatible but offer new features / fix bugs.
 
 ## Example
 
@@ -35,21 +36,23 @@ ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', 32, true)
 
 
 **Query:**
+The query() method has been rewritten as of `v0.5.0` to now accept blocks for immediate handling and parsing of results. This helps to drastically reduce the memory footprint of this gem. This of course is optional as well, if a block is not passed then the data will be returned from the method.
 ```ruby
+# old examples
 data = ps.query('www.example.com')
 
 # OR can take any number of elements in a list
 data = ps.query(['www.foo.com', 'www.bar.com'])
 
 # the strategy parameter can be either "mobile" or "desktop" for pagespeed, default is desktop
-# query() WILL also add http/https to the url if not present, default is false which is http
+# the third parameter alerts query() as to whether it should prepend http/https to the url if not present
+# default is false which is http
 data = ps.query([LIST_OF_URLS], "mobile", true)
 
-# as of v0.4.8 query() now has a memory conservation parameter
-# instead of storing the results temporarily for parsing, it parses in the query
-# function minimizing the memory used
-# in version v0.5 this will be automatic
-data = ps.query([LIST], 'desktop', false, true)
+# with block
+ps.query([LIST_OF_URLS]) do |p|
+  # do work with the pagespeed result (such as PagespeedHelper.parse())
+end
 ```
 
 
