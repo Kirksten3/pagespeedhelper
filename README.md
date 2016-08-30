@@ -13,7 +13,7 @@ Failed rate limit queries are automatically re-run.<br />
 
 Add to your Gemfile:
 ```ruby
-gem 'pagespeedhelper', '0.4.6'
+gem 'pagespeedhelper', '0.4.7'
 ```
 Since it is still pre v1.0, minor updates will break previous functionality. Sticking with a specific version is best at this point.
 
