@@ -36,6 +36,7 @@ ps = PagespeedHelper.new('YOUR_GOOGLE_PAGESPEED_API_KEY', 32, true)
 
 
 **Query:**
+
 The query() method has been rewritten as of `v0.5.0` to now accept blocks for immediate handling and parsing of results. This helps to drastically reduce the memory footprint of this gem. This of course is optional as well, if a block is not passed then the data will be returned from the method.
 ```ruby
 # old examples
