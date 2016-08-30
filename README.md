@@ -1,6 +1,7 @@
 # Google PageSpeed Helper gem
 
 A gem for Google's PageSpeed API.<br />
+[![Gem Version](https://badge.fury.io/rb/pagespeedhelper.svg)](https://badge.fury.io/rb/pagespeedhelper)
 
 ## Features
 Leverages Google's generated APIs and in doing so can do batch queries of 20 requests at a time.<br />
