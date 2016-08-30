@@ -1,9 +1,9 @@
 Gem::Specification.new do |s|
   s.name          = 'pagespeedhelper'
-  s.version       = '0.4.8'
+  s.version       = '0.5.0'
   s.date          = Date.today.to_s
   s.summary       = 'A wrapper for Google\'s PageSpeed API'
-  s.description   = 'Utilizes Google\'s Api for ruby to batch query 20 websites at a time, and format the results.'
+  s.description   = 'Utilizes Google\'s Api for ruby to batch query 20 websites, accessible immediately, and formattable.'
   s.authors       = ['Kirk Stennett']
   s.email         = 'kirk.stennett@getg5.com'
   s.files         = ['lib/pagespeedhelper.rb']

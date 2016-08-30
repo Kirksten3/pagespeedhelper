@@ -1,6 +1,7 @@
 require 'google/apis/pagespeedonline_v2'
 require 'google/apis'
 require 'logger'
+require 'pry'
 
 class PagespeedHelper
   
@@ -17,7 +18,7 @@ class PagespeedHelper
     end
   end
 
-  def query(urls, strategy="desktop", secure=false, conserve=false)
+  def query(urls, strategy="desktop", secure=false)
     @wait_time = 1
     data = Array.new 
 
@@ -31,13 +32,13 @@ class PagespeedHelper
         results = send_request(url_list, strategy)
       end while rate_error?(results)
 
-      conserve ? data.concat(PagespeedHelper.parse(results)) : data.concat(results)
+      block_given? ? yield(results) : data.concat(results)
+
       sleep(3)
     end
     
-    data
+    data if !block_given?
   end
-
 
   def self.parse(data) 
     results = Array.new
