@@ -44,6 +44,12 @@ data = ps.query(['www.foo.com', 'www.bar.com'])
 # the strategy parameter can be either "mobile" or "desktop" for pagespeed, default is desktop
 # query() WILL also add http/https to the url if not present, default is false which is http
 data = ps.query([LIST_OF_URLS], "mobile", true)
+
+# as of v0.4.8 query() now has a memory conservation parameter
+# instead of storing the results temporarily for parsing, it parses in the query
+# function minimizing the memory used
+# in version v0.5 this will be automatic
+data = ps.query([LIST], 'desktop', false, true)
 ```
 
 
