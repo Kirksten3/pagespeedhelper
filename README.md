@@ -52,7 +52,7 @@ data = ps.query([LIST_OF_URLS], "mobile", true)
 
 # with block
 ps.query([LIST_OF_URLS]) do |p|
-  # do work with the pagespeed result (such as PagespeedHelper.parse())
+  results = PagespeedHelper.parse(p)  # or other processing
 end
 ```
 
