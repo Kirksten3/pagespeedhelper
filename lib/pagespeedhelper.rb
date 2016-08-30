@@ -17,7 +17,7 @@ class PagespeedHelper
     end
   end
 
-  def query(urls, strategy="desktop", secure="false")
+  def query(urls, strategy="desktop", secure=false)
     @wait_time = 1
     data = Array.new 
 
@@ -124,6 +124,8 @@ class PagespeedHelper
   def add_protocol_if_absent(url, secure=false)  
     if !url.include? "http://" and !url.include? "https://"
       secure ? "https://" + url : "http://" + url
+    else
+      url
     end
   end
 

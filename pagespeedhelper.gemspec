@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name          = 'pagespeedhelper'
-  s.version       = '0.4.6'
+  s.version       = '0.4.7'
   s.date          = Date.today.to_s
   s.summary       = 'A wrapper for Google\'s PageSpeed API'
   s.description   = 'Utilizes Google\'s Api for ruby to batch query 20 websites at a time, and format the results.'
