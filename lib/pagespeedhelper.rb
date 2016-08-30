@@ -17,7 +17,7 @@ class PagespeedHelper
     end
   end
 
-  def query(urls, strategy="desktop", secure=false)
+  def query(urls, strategy="desktop", secure=false, conserve=false)
     @wait_time = 1
     data = Array.new 
 
@@ -31,7 +31,7 @@ class PagespeedHelper
         results = send_request(url_list, strategy)
       end while rate_error?(results)
 
-      data.concat results
+      conserve ? data.concat(PagespeedHelper.parse(results)) : data.concat(results)
       sleep(3)
     end
     
