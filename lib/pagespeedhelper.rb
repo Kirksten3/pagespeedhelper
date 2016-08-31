@@ -113,8 +113,12 @@ class PagespeedHelper
     
     @psservice.batch do |ps|
       urls.each do |url|
-        ps.run_pagespeed(url, strategy: strategy) do |result, err|
-          err.nil? ? data.push(result) : data.push({ "url" => url, "error" => err.to_s })
+        begin
+          ps.run_pagespeed(url, strategy: strategy) do |result, err|
+            err.nil? ? data.push(result) : data.push({ "url" => url, "error" => err.to_s })
+          end
+        rescue Google::Apis::ServerError => e
+          puts '[PAGESPEEDHELPER]: ' + e
         end
       end
     end
