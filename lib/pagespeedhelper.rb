@@ -1,7 +1,6 @@
 require 'google/apis/pagespeedonline_v2'
 require 'google/apis'
 require 'logger'
-require 'pry'
 
 class PagespeedHelper
   
