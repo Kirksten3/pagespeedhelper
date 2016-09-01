@@ -1,17 +1,28 @@
+require 'spec_helper'
 require 'pagespeedhelper'
 require 'pry'
+require 'dotenv'
 
 RSpec.describe PagespeedHelper do
   
   Pagespeedonline = Google::Apis::PagespeedonlineV2
-  
+
   describe '#query' do
-    let(:ps) { PagespeedHelper.new('foo') }
+    let(:ps) { PagespeedHelper.new(ENV['PAGESPEED_API_TOKEN']) }
     let(:url) { "www.foo.org" }
-    
-    it 'should return empty array and an error' do
-      expect(ps.query(url)[0].key?('error')).to eq(true)
+    let(:url2) { "www.foo2.org" }
+
+    it 'should return a ruby object of results' do 
+      VCR.use_cassette 'lib/pagespeedhelper' do
+        expect(ps.query(url)[0].rule_groups.key?("SPEED")).to eq(true)
+      end
     end
+
+    #it 'should return empty array and an error' do
+    #VCR.use_cassette 'lib/pagespeedhelper' do
+    #expect(ps.query(url2)[0].key?('error')).to eq(true)
+    #end
+    #end
   end
 
   describe '.parse' do
@@ -21,14 +32,14 @@ RSpec.describe PagespeedHelper do
     let(:info) { { format: "Foo occurs {{NUM_TIMES}}. Learn more", args: [arginfo] } }
     let(:format) { Pagespeedonline::FormatString.new(info) }
     let(:rule) { {  "AvoidLandingPageRedirects" => Pagespeedonline::Result::FormattedResults::RuleResult.new({ localized_rule_name: 'none', rule_impact: 5.5599, summary: format }) } }
-    
+
     let(:stats) { Pagespeedonline::Result::PageStats.new({ css_response_bytes: 500 }) }
 
     let(:form_results) { Pagespeedonline::Result::FormattedResults.new({ locale: 'en-us', rule_results: rule }) }
     let(:data) { Pagespeedonline::Result.new({ formatted_results: form_results, rule_groups: rule_groups, page_stats: stats }) }
-    
+
     let(:res) { PagespeedHelper.parse([data, { "url" => 'http://www.bar.com', "error" => "Bad Request" }]) }
-    
+
     context 'parse default creates proper generic hash' do
 
       it 'should set results to have the formatted hash results' do

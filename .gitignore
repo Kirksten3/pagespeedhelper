@@ -3,3 +3,5 @@ csvhelper.rb
 *.txt
 *.csv
 *.gem
+.env
+spec/vcr/*

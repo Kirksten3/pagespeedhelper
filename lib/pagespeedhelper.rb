@@ -20,7 +20,6 @@ class PagespeedHelper
   def query(urls, strategy="desktop", secure=false)
     @wait_time = 1
     data = Array.new 
-
     urls = [urls] if !urls.is_a?(Array)
 
     urls = urls.map { |url| add_protocol_if_absent(url, secure) }
