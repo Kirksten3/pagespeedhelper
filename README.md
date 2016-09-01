@@ -124,7 +124,8 @@ results[0]["url"]   # the url where the error occurred
 
 ## Running the tests
 
-Tests are under spec/, run with rspec
+Tests are under spec/, run with rspec. <br />
+Tests now require a `PAGESPEED_API_KEY` environment variable in .env to run as it now requires a key to run the vcr initial tests.
 ```
-rspec spec/lib/pagespeedhelper_spec.rb
+rspec
 ```
