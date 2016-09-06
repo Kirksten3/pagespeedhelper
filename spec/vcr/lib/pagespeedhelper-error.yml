@@ -1,0 +1,69 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.googleapis.com/batch?key=foo
+    body:
+      encoding: UTF-8
+      string: "--RubyApiBatchRequest\r\nContent-Length: 130\r\nContent-ID: <eb3d270f-0809-4f76-b777-1a82b2d3800a+0>\r\nContent-Type:
+        application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET /pagespeedonline/v2/runPagespeed?strategy=desktop&url=http%3A%2F%2Fwww.foo2.org
+        HTTP/1.1\r\nHost: www.googleapis.com\r\n\r\n\r\n--RubyApiBatchRequest--\r\n\r\n"
+    headers:
+      User-Agent:
+      - |-
+        unknown/0.0.0 google-api-ruby-client/0.9.11 Mac OS X/10.11.6
+         (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Tue, 06 Sep 2016 20:39:47 GMT
+      Content-Type:
+      - multipart/mixed; boundary=RubyApiBatchRequest
+      Content-Length:
+      - '326'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Vary:
+      - Origin
+      - X-Origin
+      Content-Type:
+      - multipart/mixed; boundary=batch_kPXaseL9Co8_AAFMXLtqrAM
+      Content-Encoding:
+      - gzip
+      Date:
+      - Tue, 06 Sep 2016 20:39:46 GMT
+      Expires:
+      - Tue, 06 Sep 2016 20:39:46 GMT
+      Cache-Control:
+      - private, max-age=0
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="36,35,34,33,32"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: "--batch_kPXaseL9Co8_AAFMXLtqrAM\r\nContent-Type: application/http\r\nContent-ID:
+        <response-eb3d270f-0809-4f76-b777-1a82b2d3800a+0>\r\n\r\nHTTP/1.1 400 Bad
+        Request\r\nContent-Type: application/json; charset=UTF-8\r\nDate: Tue, 06
+        Sep 2016 20:39:46 GMT\r\nExpires: Tue, 06 Sep 2016 20:39:46 GMT\r\nCache-Control:
+        private, max-age=0\r\nContent-Length: 463\r\n\r\n{\n \"error\": {\n  \"errors\":
+        [\n   {\n    \"domain\": \"pagespeedInsights\",\n    \"reason\": \"rateLimitExceeded\",\n
+        \   \"message\": \"Rate Limit Exceeded, try again later
+        \"\n   }\n  ],\n  \"code\": 400,\n  \"message\": \"Rate Limit Exceeded, try again later
+        \"\n }\n}\n\r\n--batch_kPXaseL9Co8_AAFMXLtqrAM--\r\n"
+    http_version: 
+  recorded_at: Tue, 06 Sep 2016 20:39:47 GMT
+recorded_with: VCR 3.0.3

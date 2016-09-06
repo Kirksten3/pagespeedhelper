@@ -4,4 +4,3 @@ csvhelper.rb
 *.csv
 *.gem
 .env
-spec/vcr/*

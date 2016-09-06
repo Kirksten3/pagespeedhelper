@@ -1,0 +1,196 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.googleapis.com/batch?key=foo
+    body:
+      encoding: UTF-8
+      string: "--RubyApiBatchRequest\r\nContent-Length: 121\r\nContent-ID: <a5f2fa98-d01d-464c-a4c8-c477a18d86d8+0>\r\nContent-Type:
+        application/http\r\nContent-Transfer-Encoding: binary\r\n\r\nGET /pagespeedonline/v2/runPagespeed?strategy=desktop&url=http%3A%2F%2Fwww.foo.org
+        HTTP/1.1\r\nHost: www.googleapis.com\r\n\r\n\r\n--RubyApiBatchRequest--\r\n\r\n"
+    headers:
+      User-Agent:
+      - |-
+        unknown/0.0.0 google-api-ruby-client/0.9.11 Mac OS X/10.11.6
+         (gzip)
+      Accept:
+      - "*/*"
+      Accept-Encoding:
+      - gzip,deflate
+      Date:
+      - Thu, 01 Sep 2016 19:24:05 GMT
+      Content-Type:
+      - multipart/mixed; boundary=RubyApiBatchRequest
+      Content-Length:
+      - '317'
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Vary:
+      - Origin
+      - X-Origin
+      Cache-Control:
+      - no-cache, no-store, max-age=0, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - Mon, 01 Jan 1990 00:00:00 GMT
+      Date:
+      - Thu, 01 Sep 2016 19:24:07 GMT
+      Content-Type:
+      - multipart/mixed; boundary=batch_7bJABB7RcaI_AAdKITu3LZs
+      Content-Encoding:
+      - gzip
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Xss-Protection:
+      - 1; mode=block
+      Server:
+      - GSE
+      Alternate-Protocol:
+      - 443:quic
+      Alt-Svc:
+      - quic=":443"; ma=2592000; v="36,35,34,33,32,31,30"
+      Transfer-Encoding:
+      - chunked
+    body:
+      encoding: UTF-8
+      string: "--batch_7bJABB7RcaI_AAdKITu3LZs\r\nContent-Type: application/http\r\nContent-ID:
+        <response-a5f2fa98-d01d-464c-a4c8-c477a18d86d8+0>\r\n\r\nHTTP/1.1 200 OK\r\nETag:
+        \"hBvbk_pWDQIcqhjD6kbuMzo62w0/l4m5obReuhUqyfDZ8PyCCgAC5RI\"\r\nContent-Type:
+        application/json; charset=UTF-8\r\nDate: Thu, 01 Sep 2016 19:24:07 GMT\r\nExpires:
+        Thu, 01 Sep 2016 19:24:07 GMT\r\nCache-Control: private, max-age=0\r\nContent-Length:
+        9661\r\n\r\n{\n \"kind\": \"pagespeedonline#result\",\n \"id\": \"http://www.foo.org/\",\n
+        \"responseCode\": 200,\n \"title\": \"FOO.org\",\n \"ruleGroups\": {\n  \"SPEED\":
+        {\n   \"score\": 96\n  }\n },\n \"pageStats\": {\n  \"numberResources\": 20,\n
+        \ \"numberHosts\": 9,\n  \"totalRequestBytes\": \"2670\",\n  \"numberStaticResources\":
+        11,\n  \"htmlResponseBytes\": \"33704\",\n  \"imageResponseBytes\": \"310269\",\n
+        \ \"javascriptResponseBytes\": \"724804\",\n  \"numberJsResources\": 6\n },\n
+        \"formattedResults\": {\n  \"locale\": \"en_US\",\n  \"ruleResults\": {\n
+        \  \"AvoidLandingPageRedirects\": {\n    \"localizedRuleName\": \"Avoid landing
+        page redirects\",\n    \"ruleImpact\": 0.0,\n    \"groups\": [\n     \"SPEED\"\n
+        \   ],\n    \"summary\": {\n     \"format\": \"Your page has no redirects.
+        Learn more about {{BEGIN_LINK}}avoiding landing page redirects{{END_LINK}}.\",\n
+        \    \"args\": [\n      {\n       \"type\": \"HYPERLINK\",\n       \"key\":
+        \"LINK\",\n       \"value\": \"https://developers.google.com/speed/docs/insights/AvoidRedirects\"\n
+        \     }\n     ]\n    }\n   },\n   \"EnableGzipCompression\": {\n    \"localizedRuleName\":
+        \"Enable compression\",\n    \"ruleImpact\": 0.0,\n    \"groups\": [\n     \"SPEED\"\n
+        \   ],\n    \"summary\": {\n     \"format\": \"You have compression enabled.
+        Learn more about {{BEGIN_LINK}}enabling compression{{END_LINK}}.\",\n     \"args\":
+        [\n      {\n       \"type\": \"HYPERLINK\",\n       \"key\": \"LINK\",\n       \"value\":
+        \"https://developers.google.com/speed/docs/insights/EnableCompression\"\n
+        \     }\n     ]\n    }\n   },\n   \"LeverageBrowserCaching\": {\n    \"localizedRuleName\":
+        \"Leverage browser caching\",\n    \"ruleImpact\": 2.4945436507936507,\n    \"groups\":
+        [\n     \"SPEED\"\n    ],\n    \"summary\": {\n     \"format\": \"Setting
+        an expiry date or a maximum age in the HTTP headers for static resources instructs
+        the browser to load previously downloaded resources from local disk rather
+        than over the network.\"\n    },\n    \"urlBlocks\": [\n     {\n      \"header\":
+        {\n       \"format\": \"{{BEGIN_LINK}}Leverage browser caching{{END_LINK}}
+        for the following cacheable resources:\",\n       \"args\": [\n        {\n
+        \        \"type\": \"HYPERLINK\",\n         \"key\": \"LINK\",\n         \"value\":
+        \"https://developers.google.com/speed/docs/insights/LeverageBrowserCaching\"\n
+        \       }\n       ]\n      },\n      \"urls\": [\n       {\n        \"result\":
+        {\n         \"format\": \"{{URL}} ({{LIFETIME}})\",\n         \"args\": [\n
+        \         {\n           \"type\": \"URL\",\n           \"key\": \"URL\",\n
+        \          \"value\": \"http://survey.g.doubleclick.net/async_survey?site=kv4ic6olrzkr6\"\n
+        \         },\n          {\n           \"type\": \"DURATION\",\n           \"key\":
+        \"LIFETIME\",\n           \"value\": \"5 minutes\"\n          }\n         ]\n
+        \       }\n       },\n       {\n        \"result\": {\n         \"format\":
+        \"{{URL}} ({{LIFETIME}})\",\n         \"args\": [\n          {\n           \"type\":
+        \"URL\",\n           \"key\": \"URL\",\n           \"value\": \"http://return.bs.uniregistry.com/return_js.php?d=foo.org&s=1472757845\"\n
+        \         },\n          {\n           \"type\": \"DURATION\",\n           \"key\":
+        \"LIFETIME\",\n           \"value\": \"15 minutes\"\n          }\n         ]\n
+        \       }\n       },\n       {\n        \"result\": {\n         \"format\":
+        \"{{URL}} ({{LIFETIME}})\",\n         \"args\": [\n          {\n           \"type\":
+        \"URL\",\n           \"key\": \"URL\",\n           \"value\": \"http://www.foo.org/img.php?www57c88055e61e82.34544976\"\n
+        \         },\n          {\n           \"type\": \"DURATION\",\n           \"key\":
+        \"LIFETIME\",\n           \"value\": \"15 minutes\"\n          }\n         ]\n
+        \       }\n       },\n       {\n        \"result\": {\n         \"format\":
+        \"{{URL}} ({{LIFETIME}})\",\n         \"args\": [\n          {\n           \"type\":
+        \"URL\",\n           \"key\": \"URL\",\n           \"value\": \"http://www.foo.org/track.php?uid=www57c88055e61e82.34544976&d=foo.org&sr=1024x768\"\n
+        \         },\n          {\n           \"type\": \"DURATION\",\n           \"key\":
+        \"LIFETIME\",\n           \"value\": \"15 minutes\"\n          }\n         ]\n
+        \       }\n       },\n       {\n        \"result\": {\n         \"format\":
+        \"{{URL}} ({{LIFETIME}})\",\n         \"args\": [\n          {\n           \"type\":
+        \"URL\",\n           \"key\": \"URL\",\n           \"value\": \"http://www.google.com/adsense/domains/caf.js\"\n
+        \         },\n          {\n           \"type\": \"DURATION\",\n           \"key\":
+        \"LIFETIME\",\n           \"value\": \"60 minutes\"\n          }\n         ]\n
+        \       }\n       }\n      ]\n     }\n    ]\n   },\n   \"MainResourceServerResponseTime\":
+        {\n    \"localizedRuleName\": \"Reduce server response time\",\n    \"ruleImpact\":
+        0.0,\n    \"groups\": [\n     \"SPEED\"\n    ],\n    \"summary\": {\n     \"format\":
+        \"Your server responded quickly. Learn more about {{BEGIN_LINK}}server response
+        time optimization{{END_LINK}}.\",\n     \"args\": [\n      {\n       \"type\":
+        \"HYPERLINK\",\n       \"key\": \"LINK\",\n       \"value\": \"https://developers.google.com/speed/docs/insights/Server\"\n
+        \     }\n     ]\n    }\n   },\n   \"MinifyCss\": {\n    \"localizedRuleName\":
+        \"Minify CSS\",\n    \"ruleImpact\": 0.0,\n    \"groups\": [\n     \"SPEED\"\n
+        \   ],\n    \"summary\": {\n     \"format\": \"Your CSS is minified. Learn
+        more about {{BEGIN_LINK}}minifying CSS{{END_LINK}}.\",\n     \"args\": [\n
+        \     {\n       \"type\": \"HYPERLINK\",\n       \"key\": \"LINK\",\n       \"value\":
+        \"https://developers.google.com/speed/docs/insights/MinifyResources\"\n      }\n
+        \    ]\n    }\n   },\n   \"MinifyHTML\": {\n    \"localizedRuleName\": \"Minify
+        HTML\",\n    \"ruleImpact\": 0.1412,\n    \"groups\": [\n     \"SPEED\"\n
+        \   ],\n    \"summary\": {\n     \"format\": \"Compacting HTML code, including
+        any inline JavaScript and CSS contained in it, can save many bytes of data
+        and speed up download and parse times.\"\n    },\n    \"urlBlocks\": [\n     {\n
+        \     \"header\": {\n       \"format\": \"{{BEGIN_LINK}}Minify HTML{{END_LINK}}
+        for the following resources to reduce their size by {{SIZE_IN_BYTES}} ({{PERCENTAGE}}
+        reduction).\",\n       \"args\": [\n        {\n         \"type\": \"HYPERLINK\",\n
+        \        \"key\": \"LINK\",\n         \"value\": \"https://developers.google.com/speed/docs/insights/MinifyResources\"\n
+        \       },\n        {\n         \"type\": \"BYTES\",\n         \"key\": \"SIZE_IN_BYTES\",\n
+        \        \"value\": \"1.3KiB\"\n        },\n        {\n         \"type\":
+        \"PERCENTAGE\",\n         \"key\": \"PERCENTAGE\",\n         \"value\": \"23%\"\n
+        \       }\n       ]\n      },\n      \"urls\": [\n       {\n        \"result\":
+        {\n         \"format\": \"Minifying {{URL}} could save {{SIZE_IN_BYTES}} ({{PERCENTAGE}}
+        reduction) after compression.\",\n         \"args\": [\n          {\n           \"type\":
+        \"URL\",\n           \"key\": \"URL\",\n           \"value\": \"http://www.foo.org/search_caf.php?uid=www57c88055e61e82.34544976&src=mountains&abp=1\"\n
+        \         },\n          {\n           \"type\": \"BYTES\",\n           \"key\":
+        \"SIZE_IN_BYTES\",\n           \"value\": \"1.3KiB\"\n          },\n          {\n
+        \          \"type\": \"PERCENTAGE\",\n           \"key\": \"PERCENTAGE\",\n
+        \          \"value\": \"23%\"\n          }\n         ]\n        }\n       }\n
+        \     ]\n     }\n    ]\n   },\n   \"MinifyJavaScript\": {\n    \"localizedRuleName\":
+        \"Minify JavaScript\",\n    \"ruleImpact\": 0.0,\n    \"groups\": [\n     \"SPEED\"\n
+        \   ],\n    \"summary\": {\n     \"format\": \"Your JavaScript content is
+        minified. Learn more about {{BEGIN_LINK}}minifying JavaScript{{END_LINK}}.\",\n
+        \    \"args\": [\n      {\n       \"type\": \"HYPERLINK\",\n       \"key\":
+        \"LINK\",\n       \"value\": \"https://developers.google.com/speed/docs/insights/MinifyResources\"\n
+        \     }\n     ]\n    }\n   },\n   \"MinimizeRenderBlockingResources\": {\n
+        \   \"localizedRuleName\": \"Eliminate render-blocking JavaScript and CSS
+        in above-the-fold content\",\n    \"ruleImpact\": 0.0,\n    \"groups\": [\n
+        \    \"SPEED\"\n    ],\n    \"summary\": {\n     \"format\": \"You have no
+        render-blocking resources. Learn more about {{BEGIN_LINK}}removing render-blocking
+        resources{{END_LINK}}.\",\n     \"args\": [\n      {\n       \"type\": \"HYPERLINK\",\n
+        \      \"key\": \"LINK\",\n       \"value\": \"https://developers.google.com/speed/docs/insights/BlockingJS\"\n
+        \     }\n     ]\n    }\n   },\n   \"OptimizeImages\": {\n    \"localizedRuleName\":
+        \"Optimize images\",\n    \"ruleImpact\": 0.10590000000000001,\n    \"groups\":
+        [\n     \"SPEED\"\n    ],\n    \"summary\": {\n     \"format\": \"Properly
+        formatting and compressing images can save many bytes of data.\"\n    },\n
+        \   \"urlBlocks\": [\n     {\n      \"header\": {\n       \"format\": \"{{BEGIN_LINK}}Optimize
+        the following images{{END_LINK}} to reduce their size by {{SIZE_IN_BYTES}}
+        ({{PERCENTAGE}} reduction).\",\n       \"args\": [\n        {\n         \"type\":
+        \"HYPERLINK\",\n         \"key\": \"LINK\",\n         \"value\": \"https://developers.google.com/speed/docs/insights/OptimizeImages\"\n
+        \       },\n        {\n         \"type\": \"BYTES\",\n         \"key\": \"SIZE_IN_BYTES\",\n
+        \        \"value\": \"952B\"\n        },\n        {\n         \"type\": \"PERCENTAGE\",\n
+        \        \"key\": \"PERCENTAGE\",\n         \"value\": \"27%\"\n        }\n
+        \      ]\n      },\n      \"urls\": [\n       {\n        \"result\": {\n         \"format\":
+        \"Compressing {{URL}} could save {{SIZE_IN_BYTES}} ({{PERCENTAGE}} reduction).\",\n
+        \        \"args\": [\n          {\n           \"type\": \"URL\",\n           \"key\":
+        \"URL\",\n           \"value\": \"https://static.uniregistry.net/assets/img/ur-logo-white.png\"\n
+        \         },\n          {\n           \"type\": \"BYTES\",\n           \"key\":
+        \"SIZE_IN_BYTES\",\n           \"value\": \"952B\"\n          },\n          {\n
+        \          \"type\": \"PERCENTAGE\",\n           \"key\": \"PERCENTAGE\",\n
+        \          \"value\": \"27%\"\n          }\n         ]\n        }\n       }\n
+        \     ]\n     }\n    ]\n   },\n   \"PrioritizeVisibleContent\": {\n    \"localizedRuleName\":
+        \"Prioritize visible content\",\n    \"ruleImpact\": 0.0,\n    \"groups\":
+        [\n     \"SPEED\"\n    ],\n    \"summary\": {\n     \"format\": \"You have
+        the above-the-fold content properly prioritized. Learn more about {{BEGIN_LINK}}prioritizing
+        visible content{{END_LINK}}.\",\n     \"args\": [\n      {\n       \"type\":
+        \"HYPERLINK\",\n       \"key\": \"LINK\",\n       \"value\": \"https://developers.google.com/speed/docs/insights/PrioritizeVisibleContent\"\n
+        \     }\n     ]\n    }\n   }\n  }\n },\n \"version\": {\n  \"major\": 1,\n
+        \ \"minor\": 15\n }\n}\n\r\n--batch_7bJABB7RcaI_AAdKITu3LZs--\r\n"
+    http_version: 
+  recorded_at: Thu, 01 Sep 2016 19:24:07 GMT
+recorded_with: VCR 3.0.3

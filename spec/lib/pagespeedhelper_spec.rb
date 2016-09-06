@@ -8,7 +8,7 @@ RSpec.describe PagespeedHelper do
   Pagespeedonline = Google::Apis::PagespeedonlineV2
 
   describe '#query' do
-    let(:ps) { PagespeedHelper.new(ENV['PAGESPEED_API_TOKEN']) }
+    let(:ps) { PagespeedHelper.new('foo', 4) }
     let(:url) { "www.foo.org" }
     let(:url2) { "www.foo2.org" }
 
@@ -18,11 +18,13 @@ RSpec.describe PagespeedHelper do
       end
     end
 
-    #it 'should return empty array and an error' do
-    #VCR.use_cassette 'lib/pagespeedhelper' do
-    #expect(ps.query(url2)[0].key?('error')).to eq(true)
-    #end
-    #end
+    it 'should use exponential backoff to handle rate errors' do
+      VCR.use_cassette 'lib/pagespeedhelper-error', allow_playback_repeats: true do
+        ps.query([url, url, url, url])
+        # will be multiplied after last (4) failed run
+        expect(ps.instance_variable_get(:@wait_time)).to eq(8)
+      end
+    end
   end
 
   describe '.parse' do
